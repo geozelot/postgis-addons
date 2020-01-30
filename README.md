@@ -1,12 +1,12 @@
-# pg_postgis
+## pg_postgis
 
-## Custom functions for PostGIS & pgRouting
+### Custom functions for PostGIS & pgRouting
 
-* ### Folder `SQL` contains SQL based addon functions:
+* #### Folder `SQL` contains SQL based addon functions:
   * `*.sql` files can be added by executing the file or the SQL as DDL
   * may need _pgRouting_ installed
   
-* ### Folder `C` contains C based core addon functions:
+* #### Folder `C` contains C based core addon functions:
   * get latest tarball from https://postgis.net/source/
   * copy `*.c` files to
   <br>`postgis-<version>/postgis/`
