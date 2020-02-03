@@ -20,5 +20,5 @@
     ```
 * #### function `st_linesubstringsbylength`: <br>
   ##### `SETOF GEOMETRY_DUMP ST_LineSubstringsByLength(geom GEOMETRY(LINESTRING), length FLOAT8, use_meter BOOLEAN DEFAULT TRUE)`<br>
-  Convenience PL/pgSQL function to create substrings of a given LineString based on `length` parameter. Will cast to `GEOGRAPHY` by default (@param `use_meter`) to work with meter as units; requires a geodetic reference system!
+  Convenience PL/pgSQL function to create substrings of a given LineString based on `length` parameter. Will cast to `GEOGRAPHY` by default (@param `use_meter`) to work with meter as units (**requires a geodetic reference system for the `geom` input!**); if not desired, set to `FALSE` to use CRS units.
   Returns a PostGIS `GEOMETRY_DUMP` having a `path BIGINT[]` sequence member and resective a `geom GEOMETRY`. 
