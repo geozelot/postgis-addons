@@ -12,11 +12,10 @@
   segments will be created starting with the `ST_StartPoint`, and last segment may be shorter than `seg_len`.<br>
   Returns a `GEOMETRY_DUMP` having a `path INT[]` and `geometry GEOMETRY` member.
   <br>
-  <br>
   ##### `GEOMETRY_DUMP ST_LineSubstringsBySegment(geom GEOMETRY, seg_cnt INT)`
   Creates `seg_cnt` equal length substrings of the linear component of the given geometry `geom`.<br>
   Returns a `GEOMETRY_DUMP` having a `path INT[]` and `geometry GEOMETRY` member.
   <br>
   <br>
   ##### `SETOF GEOMETRY_DUMP _ST_DumpSegments(geom GEOMETRY, len_frac FLOAT)`
-  Utility C function to create segments from the linear compinent of `geom` using a fraction (`len_frac`) in sequence. Get's called by `ST_LineSubstringsByLength` & `ST_LineSubstringBySegments`.
+  Utility C function to create segments from the linear component of `geom` using a fraction (`len_frac`) in sequence. Get's called by `ST_LineSubstringsByLength` & `ST_LineSubstringBySegments`.
