@@ -1,10 +1,26 @@
--- DROP FUNCTION IF EXISTS ST_LineSubstringsByLength(GEOMETRY, FLOAT8, BOOLEAN);
+-- DROP FUNCTION IF EXISTS ST_LineSubstringsByLength(GEOMETRY, FLOAT8);
+-- DROP FUNCTION IF EXISTS ST_LineSubstringsByLength(GEOGRAPHY, FLOAT8);
 
-CREATE OR REPLACE FUNCTION ST_LineSubstringsByLength(
+-- DROP FUNCTION IF EXISTS _ST_DumpSubstringsSQL(GEOMETRY, FLOAT8);
+
+
+CREATE OR REPLACE FUNCTION ST_LineSubstringsByLength(geom GEOMETRY, seg_len FLOAT8)
+  RETURNS SETOF geometry_dump AS
+  $$ SELECT _ST_DumpSubstrings($1, $2 / ST_Length($1));
+  $$
+  LANGUAGE 'sql' IMMUTABLE STRICT;
+
+CREATE OR REPLACE FUNCTION ST_LineSubstringsByLength(geog GEOGRAPHY, seg_len FLOAT8)
+  RETURNS SETOF geometry_dump AS
+  $$ SELECT _ST_DumpSubstrings($1::geometry, $2 / ST_Length($1));
+  $$
+  LANGUAGE 'sql' IMMUTABLE STRICT;
+
+
+CREATE OR REPLACE FUNCTION _ST_DumpSubstrings(
 
   geom       GEOMETRY(LINESTRING),
-  length     FLOAT8,
-  use_meter  BOOLEAN DEFAULT TRUE
+  len_frac   FLOAT8
 
 ) RETURNS SETOF geometry_dump AS
 
@@ -12,18 +28,12 @@ CREATE OR REPLACE FUNCTION ST_LineSubstringsByLength(
 
     DECLARE
 
-      len_frac  FLOAT8;
       s_frac    FLOAT8;
       e_frac    FLOAT8;
 
     BEGIN
 
-      IF ($3)
-        THEN  len_frac := $2 / ST_Length(geom::GEOGRAPHY);
-        ELSE  len_frac := $2 / ST_Length(geom);
-      END IF;
-
-      FOR n IN 0..CEIL(1.0 / len_frac)
+      FOR n IN 0..CEIL(len_frac)
         LOOP
           s_frac := len_frac * n;
           IF (s_frac >= 1.0)
