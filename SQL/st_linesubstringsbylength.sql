@@ -1,20 +1,7 @@
 -- DROP FUNCTION IF EXISTS ST_LineSubstringsByLength(GEOMETRY, FLOAT8);
 -- DROP FUNCTION IF EXISTS ST_LineSubstringsByLength(GEOGRAPHY, FLOAT8);
 
--- DROP FUNCTION IF EXISTS _ST_DumpSubstringsSQL(GEOMETRY, FLOAT8);
-
-
-CREATE OR REPLACE FUNCTION ST_LineSubstringsByLength(geom GEOMETRY, seg_len FLOAT8)
-  RETURNS SETOF geometry_dump AS
-  $$ SELECT _ST_DumpSubstrings($1, $2 / ST_Length($1));
-  $$
-  LANGUAGE 'sql' IMMUTABLE STRICT;
-
-CREATE OR REPLACE FUNCTION ST_LineSubstringsByLength(geog GEOGRAPHY, seg_len FLOAT8)
-  RETURNS SETOF geometry_dump AS
-  $$ SELECT _ST_DumpSubstrings($1::geometry, $2 / ST_Length($1));
-  $$
-  LANGUAGE 'sql' IMMUTABLE STRICT;
+-- DROP FUNCTION IF EXISTS _ST_DumpSubstrings(GEOMETRY, FLOAT8);
 
 
 CREATE OR REPLACE FUNCTION _ST_DumpSubstrings(
@@ -54,6 +41,19 @@ CREATE OR REPLACE FUNCTION _ST_DumpSubstrings(
 
   $BODY$
 
-  LANGUAGE plpgsqlVOLATILE
+  LANGUAGE plpgsql VOLATILE
   COST 100
   ROWS 1000;
+
+
+CREATE OR REPLACE FUNCTION ST_LineSubstringsByLength(geom GEOMETRY, seg_len FLOAT8)
+  RETURNS SETOF geometry_dump AS
+  $$ SELECT _ST_DumpSubstrings($1, $2 / ST_Length($1));
+  $$
+  LANGUAGE 'sql' IMMUTABLE STRICT;
+
+CREATE OR REPLACE FUNCTION ST_LineSubstringsByLength(geog GEOGRAPHY, seg_len FLOAT8)
+  RETURNS SETOF geometry_dump AS
+  $$ SELECT _ST_DumpSubstrings($1::geometry, $2 / ST_Length($1));
+  $$
+  LANGUAGE 'sql' IMMUTABLE STRICT;
