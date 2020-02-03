@@ -19,10 +19,10 @@
     )
     ```
 * #### function set `st_linesubstringsbylength`: <br>
-  ##### `SETOF GEOMETRY_DUMP ST_LineSubstringsByLength(geom GEOMETRY(LINESTRING), length FLOAT8)`<br>
-  ##### `SETOF GEOMETRY_DUMP ST_LineSubstringsByLength(geom GEOGRAPHY(LINESTRING), length FLOAT8)`<br>
-  Creates substrings of the given LineString `geom` having a length of `length` each;
-  segments will be created starting with the `ST_StartPoint`, and last segment may be shorter than `length`.<br>
+  ##### `SETOF GEOMETRY_DUMP ST_LineSubstringsByLength(geom GEOMETRY(LINESTRING), seg_len FLOAT8)`<br>
+  ##### `SETOF GEOMETRY_DUMP ST_LineSubstringsByLength(geom GEOGRAPHY(LINESTRING), seg_len FLOAT8)`<br>
+  Creates substrings of the given LineString `geom` having a length of `seg_len` each;
+  segments will be created starting with the `ST_StartPoint`, and last segment may be shorter than `seg_len`.<br>
   Returns a `GEOMETRY_DUMP` having a `path INT[]` and `geometry GEOMETRY` member.
   <br>
   <br>
