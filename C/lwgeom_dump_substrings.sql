@@ -3,21 +3,21 @@ CREATE OR REPLACE FUNCTION ST_LineSubstringsByLength(geom geometry, seg_len floa
   RETURNS SETOF geometry_dump AS
   $$ SELECT @extschema@._ST_DumpSubstrings($1, $2 / @extschema@.ST_Length($1));
   $$
-  LANGUAGE 'sql' IMMUTABLE STRICT PARALLEL SAFE;
+  LANGUAGE 'sql' IMMUTABLE STRICT _PARALLEL;
 
 -- Availability: CUSTOM
 CREATE OR REPLACE FUNCTION ST_LineSubstringsByLength(geom geography, seg_len float8)
   RETURNS SETOF geometry_dump AS
   $$ SELECT @extschema@._ST_DumpSubstrings($1::geometry, $2 / @extschema@.ST_Length($1));
   $$
-  LANGUAGE 'sql' IMMUTABLE STRICT PARALLEL SAFE;
+  LANGUAGE 'sql' IMMUTABLE STRICT _PARALLEL;
 
 -- Availability: CUSTOM
 CREATE OR REPLACE FUNCTION ST_LineSubstringsBySegment(geom geometry, seg_cnt int)
   RETURNS SETOF geometry_dump AS
   $$ SELECT @extschema@._ST_DumpSubstrings($1, 1.0 / $2::float8);
   $$
-  LANGUAGE 'sql' IMMUTABLE STRICT PARALLEL SAFE;
+  LANGUAGE 'sql' IMMUTABLE STRICT _PARALLEL;
 
 -----------------------------------------------------------------------
 -- _ST_DumpSubstrings()
