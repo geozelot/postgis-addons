@@ -6,7 +6,7 @@
   * `*.sql` files can be added by executing the file or the SQL as DDL
   * may need _pgRouting_ installed
   
-* #### Folder `C` contains C based core addon functions:
+* #### Folder `C` contains C based core addon functions; all function listed here are implemented in my [custom PostGIS source](https://github.com/geozelot/pg-custom), either build from there, or use the original source to build:
   * get latest tarball from https://postgis.net/source/
   * copy `*.c` files to
   <br>`postgis-<version>/postgis/`
