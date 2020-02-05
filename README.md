@@ -1,4 +1,4 @@
-## pg_postgis
+## pg-addons
 
 ### Custom functions for PostGIS & pgRouting
 
