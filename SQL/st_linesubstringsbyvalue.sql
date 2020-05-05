@@ -70,6 +70,6 @@ CREATE OR REPLACE FUNCTION ST_LineSubstringsBySegment(geom GEOMETRY, seg_cnt INT
 
 CREATE OR REPLACE FUNCTION ST_LineSubstringsBySegment(geom GEOGRAPHY, seg_cnt INTEGER)
   RETURNS SETOF geometry_dump AS
-  $$ SELECT _ST_DumpSubstrings($1::geography, 1.0 / $2::FLOAT8);
+  $$ SELECT _ST_DumpSubstrings($1::geometry, 1.0 / $2::FLOAT8);
   $$
   LANGUAGE 'sql' IMMUTABLE STRICT;
