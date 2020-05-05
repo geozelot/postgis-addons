@@ -1,6 +1,9 @@
 -- DROP FUNCTION IF EXISTS ST_LineSubstringsByLength(GEOMETRY, FLOAT8);
 -- DROP FUNCTION IF EXISTS ST_LineSubstringsByLength(GEOGRAPHY, FLOAT8);
 
+-- DROP FUNCTION IF EXISTS ST_LineSubstringsBySegment(GEOMETRY, INTEGER);
+-- DROP FUNCTION IF EXISTS ST_LineSubstringsBySegment(GEOGRAPHY, INTEGER);
+
 -- DROP FUNCTION IF EXISTS _ST_DumpSubstrings(GEOMETRY, FLOAT8);
 
 
@@ -55,5 +58,18 @@ CREATE OR REPLACE FUNCTION ST_LineSubstringsByLength(geom GEOMETRY, seg_len FLOA
 CREATE OR REPLACE FUNCTION ST_LineSubstringsByLength(geog GEOGRAPHY, seg_len FLOAT8)
   RETURNS SETOF geometry_dump AS
   $$ SELECT _ST_DumpSubstrings($1::geometry, $2 / ST_Length($1));
+  $$
+  LANGUAGE 'sql' IMMUTABLE STRICT;
+
+
+CREATE OR REPLACE FUNCTION ST_LineSubstringsBySegment(geom GEOMETRY, seg_cnt INTEGER)
+  RETURNS SETOF geometry_dump AS
+  $$ SELECT _ST_DumpSubstrings($1, 1.0 / $2::FLOAT8);
+  $$
+  LANGUAGE 'sql' IMMUTABLE STRICT;
+
+CREATE OR REPLACE FUNCTION ST_LineSubstringsBySegment(geom GEOGRAPHY, seg_cnt INTEGER)
+  RETURNS SETOF geometry_dump AS
+  $$ SELECT _ST_DumpSubstrings($1::geography, 1.0 / $2::FLOAT8);
   $$
   LANGUAGE 'sql' IMMUTABLE STRICT;
