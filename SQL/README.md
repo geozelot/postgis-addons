@@ -18,11 +18,17 @@
       agg_cost  FLOAT8
     )
     ```
-* #### function set `st_linesubstringsbylength`: <br>
+* #### function set `st_linesubstringsbyvalue`: <br>
   ##### `SETOF GEOMETRY_DUMP ST_LineSubstringsByLength(geom GEOMETRY(LINESTRING), seg_len FLOAT8)`<br>
   ##### `SETOF GEOMETRY_DUMP ST_LineSubstringsByLength(geom GEOGRAPHY(LINESTRING), seg_len FLOAT8)`<br>
   Creates substrings of the given LineString `geom` having a length of `seg_len` each;
   segments will be created starting with the `ST_StartPoint`, and last segment may be shorter than `seg_len`.<br>
+  Returns a `GEOMETRY_DUMP` having a `path INT[]` and `geometry GEOMETRY` member.
+  <br>
+  ##### `SETOF GEOMETRY_DUMP ST_LineSubstringsBySegment(geom GEOMETRY(LINESTRING), seg_cnt INTEGER)`<br>
+  ##### `SETOF GEOMETRY_DUMP ST_LineSubstringsBySegment(geom GEOGRAPHY(LINESTRING), seg_cnt INTEGER)`<br>
+  Creates `seg_cnt` substrings of the given LineString `geom` having equal length;
+  segments will be created starting with the `ST_StartPoint`.<br>
   Returns a `GEOMETRY_DUMP` having a `path INT[]` and `geometry GEOMETRY` member.
   <br>
   <br>
