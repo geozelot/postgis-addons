@@ -23,7 +23,7 @@ CREATE OR REPLACE FUNCTION _ST_DumpSubstrings(
 
     BEGIN
 
-      FOR n IN 0..CEIL(len_frac)
+      FOR n IN 0..CEIL(ST_Length(geom) / len_frac)
         LOOP
           s_frac := len_frac * n;
           IF (s_frac >= 1.0)
